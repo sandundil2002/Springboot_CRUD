@@ -5,42 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Form</title>
     <link rel="stylesheet" href="./style/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <h1>Customer Form</h1>
-    <form class="customer-form">
+    <h1>Blog Form</h1>
+
+    <form class="blog-form">
         <div class="form-group">
-            <label for="customerId"> Id</label>
-            <input type="text" id="customerId" placeholder="Enter Customer id">
+            <label for="blogId">Blog Id</label>
+            <input type="text" id="blogId" placeholder="Enter blog Id">
         </div>
+
         <div class="form-group">
-            <label for="customerName">Name</label>
-            <input type="text" id="customerName" placeholder="Enter Customer Name">
+            <label for="blogTitle">Title</label>
+            <input type="text" id="blogTitle" placeholder="Enter Blog Title">
         </div>
+
         <div class="form-group">
-            <label for="customerAddress">Address</label>
-            <input type="text" id="customerAddress" placeholder="Enter Customer Address">
+            <label for="blogContent">Content</label>
+            <input type="text" id="blogContent" placeholder="Enter Blog Content">
         </div>
-        <div class="form-group">
-            <label for="customerSalary">Salary</label>
-            <input type="text" id="customerSalary" placeholder="Enter Customer Salary">
-        </div>
+
         <div class="form-buttons">
-            <button type="button" class="btn save">SAVE</button>
-            <button type="button" class="btn update">UPDATE</button>
-            <button type="button" class="btn delete">DELETE</button>
-            <button type="button" class="btn get">GET</button>
+            <button type="button" class="btn save" id="save">SAVE</button>
+            <button type="button" class="btn update" id="update">UPDATE</button>
+            <button type="button" class="btn get" id="get">GET</button>
+            <button type="button" class="btn delete" id="delete">DELETE</button>
         </div>
     </form>
 
-    <table class="customer-table">
+    <table class="blog-table">
         <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Salary</th>
+            <th>Title</th>
+            <th>Content</th>
         </tr>
         </thead>
         <tbody>
@@ -49,4 +49,5 @@
 </div>
 </body>
 <script src="./js/script.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>

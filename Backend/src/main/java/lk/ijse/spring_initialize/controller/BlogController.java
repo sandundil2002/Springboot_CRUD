@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/blog")
+@CrossOrigin
 public class BlogController {
+    Logger logger;
 
     @Autowired
     private BlogRepository blogRepository;
@@ -37,7 +40,7 @@ public class BlogController {
         return new Blog();
     }
 
-    @PostMapping("/savepost")
+    @PostMapping("/saveBlog")
     public void savePost(@RequestBody Blog blog){
         System.out.println(blog.toString());
         blogRepository.save(blog);
@@ -47,6 +50,7 @@ public class BlogController {
     public List<Blog> getPost(){
         List<Blog> list = blogRepository.findAll();
         System.out.println(list);
+        logger.info(list.toString());
         return list;
     }
 

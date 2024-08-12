@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 public class Blog {
     @Id
-    private int id;
+    private String id;
     private String title;
     private String content;
 }

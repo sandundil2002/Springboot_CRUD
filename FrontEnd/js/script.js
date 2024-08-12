@@ -1,26 +1,26 @@
-$('#savepost').click(function () {
-    let postId=$('#post-id').val();
-    let postcontent=$('#post-content').val();
-    let postTitle=$('#post-title').val();
+$('#save').click(function () {
+    let blogId=$('#blogId').val();
+    let blogContent=$('#blogTitle').val();
+    let blogTitle=$('#blogContent').val();
 
-    console.log(postId,postTitle,postcontent)
     $.ajax({
-        url:"http://localhost:8080/blog/savePost",
+        url:"http://localhost:8080/blog/saveBlog",
         method:"POST",
         contentType:"application/json",
         "data":JSON.stringify({
-            "id": postId,
-            "content": postcontent,
-            "title": postTitle
+            "id": blogId,
+            "content": blogContent,
+            "title": blogTitle
         }),
+        
         success:function (result){
-            console.log(result);
-            alert("done")
+            swal("Confirmation!", "Blog Saved Succesfull!", "success");
         },
+        
         error:function (error){
-            console.error("error");
-            alert("Try again");
+            swal("Error!", "Blog Saved Failed!", "error");
         }
+        
     })
 });
 
@@ -49,6 +49,7 @@ $('#updatepost').click(function () {
         }
     })
 });
+
 $('#deletepost').click(function () {
     let postId=$('#post-id').val();
 
