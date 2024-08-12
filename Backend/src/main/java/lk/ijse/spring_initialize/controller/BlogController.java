@@ -35,4 +35,9 @@ public class BlogController {
     public void updateBlog(@RequestBody Blog blog){
         blogRepository.save(blog);
     }
+
+    @DeleteMapping("/deleteBlog/{id}")
+    public void deleteBlog(@PathVariable int id){
+        blogRepository.deleteById(id);
+    }
 }

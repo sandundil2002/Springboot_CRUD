@@ -73,14 +73,9 @@ $('#get').click(function () {
 
         success: function (res) {
             fillFields(res);
-            console.log("post", res);
-            alert("done");
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error occurred: " + textStatus);
-            console.error("Error details: " + errorThrown);
-            console.error("Response text: " + jqXHR.responseText);
-            alert("Failed to fetch blog. Please try again.");
+        error: function (res) {
+            swal("Warning!", "Blog not found!", "info");
         }
     });
 });
@@ -120,25 +115,34 @@ $('#update').click(function () {
         });
 });
 
-$('#deletepost').click(function () {
-    let postId=$('#post-id').val();
+$('#delete').click(function () {
+    let blogId=$('#blogId').val();
 
-    $.ajax({
-        url:`http://localhost:8080/blog/deletePost?id=${postId}`,
-        method:"DELETE",
-        contentType:"application/json",
-        "data":JSON.stringify({
-            "id": postId
-        }),
-        success:function (result){
-            console.log(result);
-            alert("done")
-        },
-        error:function (error){
-            console.error("error");
-            alert("Try again");
-        }
+    swal({
+        title: "Are you sure?",
+        text: "Do you want to delete this blog!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
     })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: "http://localhost:8080/blog/deleteBlog/" + blogId,
+                    method: "DELETE",
+                    contentType: "application/json",
+                    "data": JSON.stringify({
+                        "id": blogId
+                    }),
+                    success: function (result) {
+                        swal("Confirmation!", "Blog Delete Succesfull!", "success");
+                    },
+                    error: function (error) {
+                        swal("Error!", "Blog Delete Failed!", "error");
+                    }
+                });
+            }
+        });
 });
 
 function loadTable(data) {
