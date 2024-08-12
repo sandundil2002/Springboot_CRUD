@@ -34,6 +34,7 @@ $('#save').click(function () {
         success:function (result){
             swal("Confirmation!", "Blog Saved Succesfull!", "success");
             getAllBlogs();
+            clearFields();
         },
         
         error:function (error){
@@ -89,6 +90,7 @@ $('#update').click(function () {
                     success:function (result){
                         swal("Confirmation!", "Blog Update Succesfull!", "success");
                         getAllBlogs();
+                        clearFields();
                     },
                     error:function (error){
                         swal("Error!", "Blog Update Failed!", "error");
@@ -158,4 +160,9 @@ function fillFields(data) {
     $("#blogId").val(data.id);
     $("#blogTitle").val(data.title);
     $("#blogContent").val(data.content);    
+}
+
+function clearFields() {
+    $("#blogTitle").val("");
+    $("#blogContent").val("");
 }
