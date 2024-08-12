@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+</head>
+<body>
+<main>
+    <section id="PostManage">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #0a53be" >
+        <div class="container-fluid" style="background-color: #689dea">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mt-5 mb-5">
+    <form>
+        <div class="mb-3">
+            <label for="post-id" class="form-label"> Post Id</label>
+            <input type="text" class="form-control" id="post-id" aria-describedby="emailHelp" placeholder="Enter Post id">
+        </div>
+
+        <div class="mb-3">
+            <label for="post-content" class="form-label"> Post Content</label>
+            <input type="text" class="form-control" id="post-content" placeholder="Enter Postcontent">
+        </div>
+
+        <div class="mb-3">
+            <label for="post-title" class="form-label"> Post Title</label>
+            <input type="text" class="form-control" id="post-title" placeholder="Enter Post title">
+        </div>
+
+        <button type="button" id="savepost" class="btn btn-primary" style="background-color: #3d5272">SAVE</button>
+        <button type="button" id="updatepost" class="btn btn-secondary"style="background-color: #3d5272" >UPDATE</button>
+        <button type="button" id="deletepost" class="btn btn-success" style="background-color: #3d5272">DELETE</button>
+        <button type="button" id="getpost" class="btn btn-danger" style="background-color: #3d5272">GET</button>
+
+    </form>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Customer Id</th>
+                <th>Customer Name</th>
+                <th>Customer Address</th>
+                <th>Customer Salary</th>
+            </tr>
+            </thead>
+            <tbody class="tableRow">
+            </tbody>
+        </table>
+    </div>
+    </section>
+</main>
+
+<footer></footer>
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
