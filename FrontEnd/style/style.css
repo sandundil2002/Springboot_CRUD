@@ -92,6 +92,10 @@ h1 {
     color: white;
 }
 
+.blog-table tr{
+    text-align: center;
+}
+
 @media (max-width: 600px) {
     .form-buttons {
         flex-direction: column;

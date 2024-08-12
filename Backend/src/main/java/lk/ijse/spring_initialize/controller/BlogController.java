@@ -42,15 +42,13 @@ public class BlogController {
 
     @PostMapping("/saveBlog")
     public void savePost(@RequestBody Blog blog){
-        System.out.println(blog.toString());
         blogRepository.save(blog);
     }
 
-    @GetMapping("/getpost")
+    @GetMapping("/getAllBlogs")
     public List<Blog> getPost(){
         List<Blog> list = blogRepository.findAll();
         System.out.println(list);
-        logger.info(list.toString());
         return list;
     }
 
