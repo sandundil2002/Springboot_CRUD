@@ -4,24 +4,24 @@ $('#savepost').click(function () {
     let postTitle=$('#post-title').val();
 
     console.log(postId,postTitle,postcontent)
-        $.ajax({
-            url:"http://localhost:8080/blog/savePost",
-            method:"POST",
-            contentType:"application/json",
-            "data":JSON.stringify({
-                "id": postId,
-                "content": postcontent,
-                "title": postTitle
-            }),
-            success:function (result){
+    $.ajax({
+        url:"http://localhost:8080/blog/savePost",
+        method:"POST",
+        contentType:"application/json",
+        "data":JSON.stringify({
+            "id": postId,
+            "content": postcontent,
+            "title": postTitle
+        }),
+        success:function (result){
             console.log(result);
             alert("done")
-            },
-            error:function (error){
+        },
+        error:function (error){
             console.error("error");
             alert("Try again");
-            }
-        })
+        }
+    })
 });
 
 $('#updatepost').click(function () {
