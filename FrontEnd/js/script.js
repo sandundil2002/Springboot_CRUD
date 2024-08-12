@@ -1,26 +1,6 @@
 $(document).ready(function () {
     getAllBlogs();
-    generateBlogID();
 });
-
-function generateBlogID() {
-    const tbody = $(".blog-table");
-    const rows = tbody.find("tr");
-    let maxID = 0;
-
-    rows.each(function () {
-        const idCell = $(this).find("td").eq(0).text();
-        if (idCell.startsWith("B")) {
-            const currentID = parseInt(idCell.slice(1));
-            if (currentID > maxID) {
-                maxID = currentID; 
-            }
-        }
-    });
-
-    let newID =(maxID + 1).toString().padStart(3, "0");
-    $("#blogId").val(newID); 
-}
 
 function getAllBlogs() {
     return $.ajax({
@@ -29,6 +9,7 @@ function getAllBlogs() {
         dataType: "json",
         success: function(result) {
             loadTable(result);
+            loadBlogsId(result.map(blog => blog.id));
         },
         
         error: function(jqXHR, textStatus, errorThrown) {
@@ -38,7 +19,6 @@ function getAllBlogs() {
 }
 
 $('#save').click(function () {
-    let blogId=$('#blogId').val();
     let blogTitle=$('#blogTitle').val();
     let blogContent=$('#blogContent').val();
 
@@ -47,13 +27,13 @@ $('#save').click(function () {
         method:"POST",
         contentType:"application/json",
         "data":JSON.stringify({
-            "id": blogId,
             "title": blogTitle,
             "content": blogContent,
         }),
         
         success:function (result){
             swal("Confirmation!", "Blog Saved Succesfull!", "success");
+            getAllBlogs();
         },
         
         error:function (error){
@@ -63,7 +43,7 @@ $('#save').click(function () {
     })
 });
 
-$('#get').click(function () {
+$('#get').click(function search() {
     let blogId = $('#blogId').val();
 
     $.ajax({
@@ -73,9 +53,11 @@ $('#get').click(function () {
 
         success: function (res) {
             fillFields(res);
+            return true;
         },
         error: function (res) {
             swal("Warning!", "Blog not found!", "info");
+            return false;
         }
     });
 });
@@ -106,6 +88,7 @@ $('#update').click(function () {
 
                     success:function (result){
                         swal("Confirmation!", "Blog Update Succesfull!", "success");
+                        getAllBlogs();
                     },
                     error:function (error){
                         swal("Error!", "Blog Update Failed!", "error");
@@ -136,6 +119,7 @@ $('#delete').click(function () {
                     }),
                     success: function (result) {
                         swal("Confirmation!", "Blog Delete Succesfull!", "success");
+                        getAllBlogs();
                     },
                     error: function (error) {
                         swal("Error!", "Blog Delete Failed!", "error");
@@ -146,6 +130,7 @@ $('#delete').click(function () {
 });
 
 function loadTable(data) {
+    $("#tbl-blogs").empty();
     data.forEach(function(blog) {
         $(".blog-table").append(
             "<tr> " +
@@ -153,6 +138,18 @@ function loadTable(data) {
             "<td>" + blog.title + "</td>" +
             "<td>" + blog.content + "</td>" +
             "</tr>"
+        );
+    });
+}
+
+function loadBlogsId(blogIds) {
+    const blogId = $("#blogId");
+    blogId.empty();
+    blogId.append('<option value="">Select the Blog Id Before Update, Get, Delete</option>');
+
+    blogIds.forEach(function (id) {
+        blogId.append(
+            "<option value='" + id + "'>" + id + "</option>"
         );
     });
 }
