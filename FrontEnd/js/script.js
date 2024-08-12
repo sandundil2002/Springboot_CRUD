@@ -1,6 +1,26 @@
 $(document).ready(function () {
     getAllBlogs();
+    generateBlogID();
 });
+
+function generateBlogID() {
+    const tbody = $(".blog-table");
+    const rows = tbody.find("tr");
+    let maxID = 0;
+
+    rows.each(function () {
+        const idCell = $(this).find("td").eq(0).text();
+        if (idCell.startsWith("B")) {
+            const currentID = parseInt(idCell.slice(1));
+            if (currentID > maxID) {
+                maxID = currentID; 
+            }
+        }
+    });
+
+    let newID =(maxID + 1).toString().padStart(3, "0");
+    $("#blogId").val(newID); 
+}
 
 function getAllBlogs() {
     return $.ajax({
@@ -12,15 +32,15 @@ function getAllBlogs() {
         },
         
         error: function(jqXHR, textStatus, errorThrown) {
-            console.error("Failed to fetch customers:", textStatus, errorThrown);
+            console.error("Failed to fetch blogs:", textStatus, errorThrown);
         }
     });
 }
 
 $('#save').click(function () {
     let blogId=$('#blogId').val();
-    let blogContent=$('#blogTitle').val();
-    let blogTitle=$('#blogContent').val();
+    let blogTitle=$('#blogTitle').val();
+    let blogContent=$('#blogContent').val();
 
     $.ajax({
         url:"http://localhost:8080/blog/saveBlog",
@@ -28,8 +48,8 @@ $('#save').click(function () {
         contentType:"application/json",
         "data":JSON.stringify({
             "id": blogId,
+            "title": blogTitle,
             "content": blogContent,
-            "title": blogTitle
         }),
         
         success:function (result){
@@ -43,58 +63,61 @@ $('#save').click(function () {
     })
 });
 
-$('#getpost').click(function () {
-    let postId=$('#post-id').val();
-    let postcontent=$('#post-content').val();
-    let postTitle=$('#post-title').val();
+$('#get').click(function () {
+    let blogId = $('#blogId').val();
 
-    console.log(postId,postTitle,postcontent)
     $.ajax({
-        url:"http://localhost:8080/blog/getPost?function=getAllPosts",
-        method:"GET",
-        contentType:"application/json",
+        url: "http://localhost:8080/blog/getBlog/" + blogId,
+        method: "GET",
+        dataType: "json",
 
-        success:function (res){
-            let post = JSON.parse(res);
-            console.log("post",post)
-            $('#PostManage .tableRow').empty();
-            post.forEach(c => {
-                loadTable(c);
-            });
-            console.log(result);
-            alert("done")
+        success: function (res) {
+            fillFields(res);
+            console.log("post", res);
+            alert("done");
         },
-        error:function (error){
-            console.error("error");
-            alert("Try again");
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error occurred: " + textStatus);
+            console.error("Error details: " + errorThrown);
+            console.error("Response text: " + jqXHR.responseText);
+            alert("Failed to fetch blog. Please try again.");
         }
-    })
+    });
 });
 
-$('#updatepost').click(function () {
-    let postId=$('#post-id').val();
-    let postcontent=$('#post-content').val();
-    let postTitle=$('#post-title').val();
+$('#update').click(function () {
+    let blogId=$('#blogId').val();
+    let blogTitle=$('#blogTitle').val();
+    let blogContent=$('#blogContent').val();
 
-    console.log(postId,postTitle,postcontent)
-    $.ajax({
-        url:"http://localhost:8080/blog/putPost",
-        method:"PUT",
-        contentType:"application/json",
-        "data":JSON.stringify({
-            "id": postId,
-            "content": postcontent,
-            "title": postTitle
-        }),
-        success:function (result){
-            console.log(result);
-            alert("done")
-        },
-        error:function (error){
-            console.error("error");
-            alert("Try again");
-        }
+    swal({
+        title: "Are you sure?",
+        text: "Do you want to update this blog!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
     })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url:"http://localhost:8080/blog/updateBlog",
+                    method:"PUT",
+                    contentType:"application/json",
+                    "data":JSON.stringify({
+                        "id": blogId,
+                        "content": blogContent,
+                        "title": blogTitle
+                    }),
+
+                    success:function (result){
+                        swal("Confirmation!", "Blog Update Succesfull!", "success");
+                    },
+                    error:function (error){
+                        swal("Error!", "Blog Update Failed!", "error");
+                    }
+                });
+            }
+        });
 });
 
 $('#deletepost').click(function () {
@@ -128,4 +151,10 @@ function loadTable(data) {
             "</tr>"
         );
     });
+}
+
+function fillFields(data) {
+    $("#blogId").val(data.id);
+    $("#blogTitle").val(data.title);
+    $("#blogContent").val(data.content);    
 }

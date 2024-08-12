@@ -6,39 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/blog")
 @CrossOrigin
 public class BlogController {
-    Logger logger;
-
     @Autowired
     private BlogRepository blogRepository;
-
-    @GetMapping("/hello")
-    public String hello(){
-        return "Hello World!";
-    }
-
-    @PostMapping("/number")
-    public int getNum(){
-        return 10;
-    }
-
-    @RequestMapping(value = "/req{id}", method = GET)
-    public int getId(@PathVariable int id) {
-        System.out.println("ID " + id);
-        return id;
-    }
-
-    @GetMapping("/obj")
-    public Object getObj() {
-        return new Blog();
-    }
 
     @PostMapping("/saveBlog")
     public void savePost(@RequestBody Blog blog){
@@ -52,4 +26,13 @@ public class BlogController {
         return list;
     }
 
+    @GetMapping("/getBlog/{id}")
+    public Blog getBlog(@PathVariable int id) {
+        return blogRepository.findById(id).get();
+    }
+
+    @PutMapping("/updateBlog")
+    public void updateBlog(@RequestBody Blog blog){
+        blogRepository.save(blog);
+    }
 }
