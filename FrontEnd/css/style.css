@@ -1,18 +1,104 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 8rem;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-th,
-td {
-    padding: 1rem;
-    border: 1px solid #c4c4c4;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+h1 {
     text-align: center;
-    font-size: 1rem;
+    margin-bottom: 20px;
 }
 
-th {
-    background-color: rgb(9, 44, 68);
+.container {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.customer-form .form-group {
+    margin-bottom: 15px;
+}
+
+.customer-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.customer-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-buttons .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+}
+
+.form-buttons .save {
+    background-color: #3498db;
+}
+
+.form-buttons .update {
+    background-color: #2ecc71;
+}
+
+.form-buttons .delete {
+    background-color: #e74c3c;
+}
+
+.form-buttons .get {
+    background-color: #8e44ad;
+}
+
+.customer-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.customer-table th, .customer-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.customer-table th {
+    background-color: #2c3e50;
     color: white;
+}
+
+@media (max-width: 600px) {
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .form-buttons .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
