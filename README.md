@@ -36,7 +36,7 @@ Clone the repository:
 
 ```bash
 https://github.com/sandundil2002/Springboot_CRUD.git
-cd springboot-crud-operations
+cd Springboot_CRUD
 ```
 
 Configure the Database:
