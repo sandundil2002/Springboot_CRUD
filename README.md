@@ -2,10 +2,7 @@
 
 ## 
 
-![App Screenshot](https://i.ibb.co/sQqsbP4/image.png)
-
-
-
+<p align="center"><img src="https://i.ibb.co/sQqsbP4/image.png" alt="project-image"></p>
 
 This is a Spring Boot project that demonstrates basic CRUD (Create, Read, Update, Delete) operations with a RESTful API. The project is built using Spring Boot, Spring Data JPA, and a MySQL database (or any other database as per your configuration).
 
